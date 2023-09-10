@@ -1,12 +1,9 @@
 package dev.srikanth.productservice.controller;
 
-import dev.srikanth.productservice.dto.ExceptionDto;
 import dev.srikanth.productservice.dto.GenericProductDto;
 import dev.srikanth.productservice.exception.NotFoundException;
 import dev.srikanth.productservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +15,7 @@ public class ProductController {
 
     private ProductService productService;
 
-    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
+    public ProductController(ProductService productService) {
         this.productService = productService;
     }
 

@@ -1,4 +1,4 @@
-package dev.srikanth.productservice.dto;
+package dev.srikanth.productservice.thirdpartyclients.productservice.fakestore;
 
 import lombok.Getter;
 import lombok.Setter;
