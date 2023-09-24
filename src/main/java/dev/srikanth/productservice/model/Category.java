@@ -1,5 +1,6 @@
 package dev.srikanth.productservice.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -8,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.ListResourceBundle;
 
 @Entity
 @Getter
@@ -16,9 +16,11 @@ import java.util.ListResourceBundle;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Category extends BaseModel {
+
+    @Column
     private String name;
 
-    @OneToMany(fetch = jakarta.persistence.FetchType.EAGER, mappedBy = "category")
+    @OneToMany(mappedBy = "category")
     private List<Product> products;
 
 }

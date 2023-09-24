@@ -6,8 +6,10 @@ import dev.srikanth.productservice.inheritencedemo.jointable.MentorRepository;
 import dev.srikanth.productservice.inheritencedemo.jointable.User;
 import dev.srikanth.productservice.inheritencedemo.jointable.UserRepository;
 import dev.srikanth.productservice.model.Category;
+import dev.srikanth.productservice.model.Price;
 import dev.srikanth.productservice.model.Product;
 import dev.srikanth.productservice.repositories.CategoryRepository;
+import dev.srikanth.productservice.repositories.PriceRepository;
 import dev.srikanth.productservice.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
@@ -25,15 +27,18 @@ public class ProductServiceApplication implements CommandLineRunner {
     private UserRepository mUserRepository;
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final PriceRepository priceRepository;
 
-    public ProductServiceApplication(@Qualifier("jt_mr")MentorRepository mentorRepository,
-                                     @Qualifier("jt_ur")UserRepository userRepository,
+    public ProductServiceApplication(@Qualifier("jt_mr") MentorRepository mentorRepository,
+                                     @Qualifier("jt_ur") UserRepository userRepository,
                                      ProductRepository productRepository,
-                                     CategoryRepository categoryRepository) {
+                                     CategoryRepository categoryRepository,
+                                     PriceRepository priceRepository) {
         this.mMentorRepository = mentorRepository;
         this.mUserRepository = userRepository;
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+        this.priceRepository = priceRepository;
     }
 
     @Override
@@ -61,14 +66,19 @@ public class ProductServiceApplication implements CommandLineRunner {
         category.setName("Apple");
         Category savedCategory = categoryRepository.save(category);
 
+        Price price = new Price("Doller", 10);
+
         Product product = new Product();
         product.setTitle("iPhone 15 Pro");
         product.setDescription("The best iPhone ever");
         product.setCategory(savedCategory);
+        product.setPrice(price);
 
         productRepository.save(product);
 
+        List<Product> products = productRepository.findAllByPrice_Currency("Doller");
 
+        System.out.println((long) products.size());
 
 
     }
